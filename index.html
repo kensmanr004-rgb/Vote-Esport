@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เสนอชื่อเกมที่อยากให้จัดแข่ง 🎮</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen text-gray-800 flex items-center justify-start p-4 md:p-10 overflow-x-hidden">
+
+    <div class="max-w-6xl w-full mx-auto md:ml-10 lg:ml-20 flex flex-col md:flex-row gap-10 items-center">
+
+        <div class="w-full md:w-1/2 lg:w-5/12 bg-white rounded-3xl p-8 border-2 border-purple-200 cute-shadow relative z-10">
+            <div class="text-center mb-6">
+                <h1 class="text-3xl font-bold text-purple-600 mb-2">🎮 School E-Sports</h1>
+                <p class="text-gray-500">เสนอชื่อเกมที่อยากให้โรงเรียนจัดแข่งขัน!</p>
+            </div>
+
+            <form id="gameForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">เกมที่ 1 🥇</label>
+                    <input type="text" id="game1" required placeholder="เช่น RoV, Valorant, Free Fire" 
+                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 input-cute transition-colors text-gray-700 bg-gray-50 focus:bg-white">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">เกมที่ 2 (ไม่บังคับ) 🥈</label>
+                    <input type="text" id="game2" placeholder="เกมแนวอื่นที่น่าสนใจ" 
+                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 input-cute transition-colors text-gray-700 bg-gray-50 focus:bg-white">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">เกมที่ 3 (ไม่บังคับ) 🥉</label>
+                    <input type="text" id="game3" placeholder="เกมสำรองที่อยากเล่น" 
+                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 input-cute transition-colors text-gray-700 bg-gray-50 focus:bg-white">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">เหตุผลที่อยากให้จัด (ไม่บังคับ) 💬</label>
+                    <textarea id="reason" rows="3" placeholder="ทำไมถึงอยากให้จัดแข่งเกมเหล่านี้..." 
+                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 input-cute transition-colors text-gray-700 bg-gray-50 focus:bg-white resize-none"></textarea>
+                </div>
+
+                <button type="submit" 
+                    class="w-full bg-gradient-to-r from-purple-400 to-pink-400 text-white font-bold py-3 px-4 rounded-xl mt-4 transform hover:-translate-y-1 transition-all duration-200 shadow-lg hover:shadow-xl flex justify-center items-center gap-2">
+                    <span>ส่งคำตอบ 🚀</span>
+                </button>
+            </form>
+        </div>
+
+        <div class="hidden md:flex w-full md:w-1/2 lg:w-7/12 relative h-[500px] justify-center items-center">
+            <div class="absolute top-10 left-10 float-img z-20 transform -rotate-6">
+                <img src="https://placehold.co/200x200/ffb3ba/ffffff?text=Game+1" alt="Game 1" class="w-48 h-48 object-cover rounded-2xl border-4 border-white shadow-xl">
+            </div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 float-img z-30">
+                <img src="https://placehold.co/250x250/baffc9/ffffff?text=Game+2" alt="Game 2" class="w-64 h-64 object-cover rounded-full border-4 border-white shadow-2xl">
+            </div>
+            <div class="absolute bottom-10 right-10 float-img z-10 transform rotate-12">
+                <img src="https://placehold.co/200x200/bae1ff/ffffff?text=Game+3" alt="Game 3" class="w-48 h-48 object-cover rounded-2xl border-4 border-white shadow-xl">
+            </div>
+            <div class="absolute w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50 z-0 top-0 right-20"></div>
+            <div class="absolute w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50 z-0 bottom-0 left-20"></div>
+        </div>
+    </div>
+
+    <div id="formatModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden flex-col items-center justify-center z-40 transition-opacity">
+        <div class="bg-white p-8 rounded-3xl max-w-md w-[90%] shadow-2xl transform scale-95 transition-transform relative" id="formatModalContent">
+            <button onclick="closeFormatModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <h2 class="text-2xl font-bold text-purple-600 mb-2 text-center">อีกนิดเดียว! 📝</h2>
+            <p class="text-gray-600 mb-4 text-center text-sm">คุณมีไอเดียหรือแนวทางที่อยากให้จัดแข่งไหม?</p>
+            <textarea id="formatSuggestion" rows="4" placeholder="เช่น แข่งหลังเลิกเรียน, จัดแบบแพ้คัดออก..." class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 input-cute transition-colors text-gray-700 bg-gray-50 focus:bg-white resize-none mb-4"></textarea>
+            <p class="text-xs text-gray-400 text-center mb-4">* ไม่จำเป็นต้องกรอก หากไม่มีไอเดียสามารถกดยืนยันได้เลย</p>
+            <button type="button" id="confirmBtn" onclick="submitAllData()" class="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-4 rounded-xl transition-all duration-200 shadow-lg flex justify-center items-center gap-2">
+                <span>ยืนยันเพื่อส่งข้อมูล ✅</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="successModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden flex-col items-center justify-center z-50 transition-opacity">
+        <div class="bg-white p-8 rounded-3xl max-w-sm w-[90%] text-center shadow-2xl transform scale-95 transition-transform" id="successModalContent">
+            <div class="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4 text-4xl">✓</div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">ส่งข้อมูลสำเร็จ!</h2>
+            <p class="text-gray-600 mb-6">ระบบได้บันทึกข้อมูลของคุณแล้ว 🎉</p>
+            <button onclick="closeSuccessModal()" class="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-6 rounded-xl transition-colors">ปิดหน้าต่าง</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
