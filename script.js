@@ -1,6 +1,6 @@
 // --- ตั้งเวลาปิดโหวตอัตโนมัติ ---
 // รูปแบบ: "ปี-เดือน-วันTเวลา" (ตัวอย่างนี้คือ ปิดวันพุธที่ 3 มิถุนายน 2026 เวลา 23:59:59)
-const deadline = new Date("2026-06-03T11:59:59").getTime();
+const deadline = new Date("2026-06-01T11:59:59").getTime();
 
 window.onload = function() {
     const now = new Date().getTime();
