@@ -4,6 +4,10 @@ body {
     background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
     background-image: radial-gradient(#d1d5db 1px, transparent 1px);
     background-size: 20px 20px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* จัดให้อยู่ตรงกลางหน้าจอ */
 }
 
 /* เอฟเฟกต์เงาและการ์ตูนน่ารัก */
@@ -21,23 +25,4 @@ body {
     outline: none;
     border-color: #a78bfa;
     box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
-}
-
-/* อนิเมชั่นภาพลอย */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-}
-
-.float-img {
-    animation: float 4s ease-in-out infinite;
-}
-
-.float-img:nth-child(2) {
-    animation-delay: 1s;
-}
-
-.float-img:nth-child(3) {
-    animation-delay: 2s;
 }

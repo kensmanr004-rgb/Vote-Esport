@@ -1,7 +1,7 @@
 // =========================================================
 // 🔴 นำ URL ของ Google Apps Script มาใส่ในบรรทัดด้านล่างนี้ 🔴
 // =========================================================
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbykXDYJJ_aUkawQZhECWrdJSEaPFbjM4SlYB94M-gC5Q3UJRIyQ9GD1RGRdXE2PSZWetw/exec'; 
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyY7WJIbQrHwiK0o-Ms33bKY2A4MkUpLiab_R8aVNaSC6o0IQfB9cUoXfivRx3Lc9oV/exec'; 
 
 const form = document.getElementById('gameForm');
 const formatModal = document.getElementById('formatModal');

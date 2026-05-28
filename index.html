@@ -10,61 +10,44 @@
     
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="min-h-screen text-gray-800 flex items-center justify-start p-4 md:p-10 overflow-x-hidden">
+<body class="min-h-screen text-gray-800 flex items-center justify-center p-4 md:p-10">
 
-    <div class="max-w-6xl w-full mx-auto md:ml-10 lg:ml-20 flex flex-col md:flex-row gap-10 items-center">
-
-        <div class="w-full md:w-1/2 lg:w-5/12 bg-white rounded-3xl p-8 border-2 border-purple-200 cute-shadow relative z-10">
-            <div class="text-center mb-6">
-                <h1 class="text-3xl font-bold text-purple-600 mb-2">🎮 School E-Sports</h1>
-                <p class="text-gray-500">เสนอชื่อเกมที่อยากให้โรงเรียนจัดแข่งขัน!</p>
-            </div>
-
-            <form id="gameForm" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">เกมที่ 1 🥇</label>
-                    <input type="text" id="game1" required placeholder="เช่น RoV, Valorant, Free Fire" 
-                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 input-cute transition-colors text-gray-700 bg-gray-50 focus:bg-white">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">เกมที่ 2 (ไม่บังคับ) 🥈</label>
-                    <input type="text" id="game2" placeholder="เกมแนวอื่นที่น่าสนใจ" 
-                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 input-cute transition-colors text-gray-700 bg-gray-50 focus:bg-white">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">เกมที่ 3 (ไม่บังคับ) 🥉</label>
-                    <input type="text" id="game3" placeholder="เกมสำรองที่อยากเล่น" 
-                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 input-cute transition-colors text-gray-700 bg-gray-50 focus:bg-white">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">เหตุผลที่อยากให้จัด (ไม่บังคับ) 💬</label>
-                    <textarea id="reason" rows="3" placeholder="ทำไมถึงอยากให้จัดแข่งเกมเหล่านี้..." 
-                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 input-cute transition-colors text-gray-700 bg-gray-50 focus:bg-white resize-none"></textarea>
-                </div>
-
-                <button type="submit" 
-                    class="w-full bg-gradient-to-r from-purple-400 to-pink-400 text-white font-bold py-3 px-4 rounded-xl mt-4 transform hover:-translate-y-1 transition-all duration-200 shadow-lg hover:shadow-xl flex justify-center items-center gap-2">
-                    <span>ส่งคำตอบ 🚀</span>
-                </button>
-            </form>
+    <div class="w-full max-w-lg bg-white rounded-3xl p-8 border-2 border-purple-200 cute-shadow relative z-10">
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-bold text-purple-600 mb-2">🎮 School E-Sports</h1>
+            <p class="text-gray-500">เสนอชื่อเกมที่อยากให้โรงเรียนจัดแข่งขัน!</p>
         </div>
 
-        <div class="hidden md:flex w-full md:w-1/2 lg:w-7/12 relative h-[500px] justify-center items-center">
-            <div class="absolute top-10 left-10 float-img z-20 transform -rotate-6">
-                <img src="https://placehold.co/200x200/ffb3ba/ffffff?text=Game+1" alt="Game 1" class="w-48 h-48 object-cover rounded-2xl border-4 border-white shadow-xl">
+        <form id="gameForm" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">เกมที่ 1 🥇</label>
+                <input type="text" id="game1" required placeholder="เช่น RoV, Valorant, Free Fire" 
+                    class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 input-cute transition-colors text-gray-700 bg-gray-50 focus:bg-white">
             </div>
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 float-img z-30">
-                <img src="https://placehold.co/250x250/baffc9/ffffff?text=Game+2" alt="Game 2" class="w-64 h-64 object-cover rounded-full border-4 border-white shadow-2xl">
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">เกมที่ 2 (ไม่บังคับ) 🥈</label>
+                <input type="text" id="game2" placeholder="เกมแนวอื่นที่น่าสนใจ" 
+                    class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 input-cute transition-colors text-gray-700 bg-gray-50 focus:bg-white">
             </div>
-            <div class="absolute bottom-10 right-10 float-img z-10 transform rotate-12">
-                <img src="https://placehold.co/200x200/bae1ff/ffffff?text=Game+3" alt="Game 3" class="w-48 h-48 object-cover rounded-2xl border-4 border-white shadow-xl">
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">เกมที่ 3 (ไม่บังคับ) 🥉</label>
+                <input type="text" id="game3" placeholder="เกมสำรองที่อยากเล่น" 
+                    class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 input-cute transition-colors text-gray-700 bg-gray-50 focus:bg-white">
             </div>
-            <div class="absolute w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50 z-0 top-0 right-20"></div>
-            <div class="absolute w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50 z-0 bottom-0 left-20"></div>
-        </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">เหตุผลที่อยากให้จัด (ไม่บังคับ) 💬</label>
+                <textarea id="reason" rows="3" placeholder="ทำไมถึงอยากให้จัดแข่งเกมเหล่านี้..." 
+                    class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 input-cute transition-colors text-gray-700 bg-gray-50 focus:bg-white resize-none"></textarea>
+            </div>
+
+            <button type="submit" 
+                class="w-full bg-gradient-to-r from-purple-400 to-pink-400 text-white font-bold py-3 px-4 rounded-xl mt-4 transform hover:-translate-y-1 transition-all duration-200 shadow-lg hover:shadow-xl flex justify-center items-center gap-2">
+                <span>ส่งคำตอบ 🚀</span>
+            </button>
+        </form>
     </div>
 
     <div id="formatModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden flex-col items-center justify-center z-40 transition-opacity">
