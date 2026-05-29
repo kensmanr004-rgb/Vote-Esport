@@ -34,7 +34,7 @@ window.onload = function() {
 // 🔴 นำ URL ของ Google Apps Script มาใส่ในบรรทัดด้านล่างนี้ 🔴
 // =========================================================
 // ⚠️ สำคัญมาก: นำ URL ของ Web App ที่ได้จากการ Deploy ใน Google Apps Script มาใส่ตรงนี้
-const scriptURL = 'ใส่_WEB_APP_URL_ของคุณที่นี่'; 
+const scriptURL = 'https://script.google.com/macros/s/AKfycbyY7WJIbQrHwiK0o-Ms33bKY2A4MkUpLiab_R8aVNaSC6o0IQfB9cUoXfivRx3Lc9oV/exec'; 
 
 const form = document.getElementById('gameForm');
 
