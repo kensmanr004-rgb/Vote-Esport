@@ -33,150 +33,97 @@ window.onload = function() {
 // =========================================================
 // 🔴 นำ URL ของ Google Apps Script มาใส่ในบรรทัดด้านล่างนี้ 🔴
 // =========================================================
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyY7WJIbQrHwiK0o-Ms33bKY2A4MkUpLiab_R8aVNaSC6o0IQfB9cUoXfivRx3Lc9oV/exec'; 
+// ⚠️ สำคัญมาก: นำ URL ของ Web App ที่ได้จากการ Deploy ใน Google Apps Script มาใส่ตรงนี้
+const scriptURL = 'ใส่_WEB_APP_URL_ของคุณที่นี่'; 
 
 const form = document.getElementById('gameForm');
-const formatModal = document.getElementById('formatModal');
-const formatModalContent = document.getElementById('formatModalContent');
-const successModal = document.getElementById('successModal');
-const successModalContent = document.getElementById('successModalContent');
 
-// ขั้นตอนที่ 1: ตรวจสอบข้อมูลเมื่อกดส่งคำตอบ
-form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const g1 = document.getElementById('game1').value.trim().toLowerCase();
-    const g2 = document.getElementById('game2').value.trim().toLowerCase();
-    const g3 = document.getElementById('game3').value.trim().toLowerCase();
-
-    // กรองเอาเฉพาะช่องที่มีการกรอกข้อความ
-    const filledGames = [g1, g2, g3].filter(game => game !== '');
-    const uniqueGames = new Set(filledGames);
-
-    // เช็คว่ามีเกมซ้ำกันหรือไม่
-    if(filledGames.length !== uniqueGames.size) {
-        showCustomError("กรุณากรอกชื่อเกมให้ไม่ซ้ำกันนะครับ 😅");
-        return;
-    }
-    
-    // ถ้าผ่าน ให้เปิดหน้าต่างถามแนวทางจัดแข่ง
-    openFormatModal();
+// เมื่อผู้ใช้งานกดปุ่ม "ส่งคำตอบ" ในฟอร์มหลัก
+form.addEventListener('submit', e => {
+    e.preventDefault(); // บล็อกไม่ให้หน้าเว็บรีโหลด
+    openFormatModal();  // เปิดหน้าต่าง Modal ตัวแรกขึ้นมาถามข้อมูลเพิ่ม
 });
 
-// ขั้นตอนที่ 2: กดปุ่มยืนยันเพื่อส่งเข้า Google Sheet
-function submitAllData() {
-    // --- เพิ่มส่วนนี้: เช็คว่าเคยส่งไปแล้วหรือยัง ---
-    if (localStorage.getItem('hasSubmitted')) {
-        showCustomError("คุณได้ส่งข้อมูลไปแล้ว ไม่สามารถส่งซ้ำได้ครับ 😅");
-        return; 
-    }
-    // ------------------------------------------
-
-    const confirmBtn = document.getElementById('confirmBtn');
-    
-    // ... โค้ดเดิมของคุณ ...
-    
-    fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: formData
-    })
-    .then(() => {
-        // --- เพิ่มส่วนนี้: เมื่อส่งสำเร็จ ให้บันทึกว่าส่งแล้วลงในเครื่องผู้ใช้ ---
-        localStorage.setItem('hasSubmitted', 'true');
-        // -------------------------------------------------------------
-        
-        closeFormatModal();
-        showSuccessModal();
-        form.reset();
-        document.getElementById('formatSuggestion').value = '';
-    })
-    // ... โค้ดที่เหลือของคุณ ...
-}
-function submitAllData() {
-    const confirmBtn = document.getElementById('confirmBtn');
-
-    // ถ้ายังไม่ใส่ลิงก์ Google Sheet ให้แค่โชว์สถานะสำเร็จจำลองไปก่อน
-    if(SCRIPT_URL === 'ใส่_URL_ที่ได้จาก_Google_Apps_Script_ที่นี่') {
-        closeFormatModal();
-        showSuccessModal();
-        form.reset();
-        document.getElementById('formatSuggestion').value = '';
-        return;
-    }
-
-    // เปลี่นปุ่มเป็นสถานะโหลด
-    confirmBtn.disabled = true;
-    confirmBtn.innerHTML = '<span class="animate-spin text-xl">⏳</span> กำลังบันทึกข้อมูล...';
-    confirmBtn.classList.replace('bg-purple-500', 'bg-gray-400');
-    confirmBtn.classList.replace('hover:bg-purple-600', 'hover:bg-gray-400');
-
-    // รวมข้อมูลทั้งหมด
-    const formData = new FormData();
-    formData.append('game1', document.getElementById('game1').value.trim());
-    formData.append('game2', document.getElementById('game2').value.trim());
-    formData.append('game3', document.getElementById('game3').value.trim());
-    formData.append('reason', document.getElementById('reason').value.trim());
-    formData.append('format', document.getElementById('formatSuggestion').value.trim());
-
-    // ส่งข้อมูล
-    fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: formData
-    })
-    .then(() => {
-        closeFormatModal();
-        showSuccessModal();
-        form.reset();
-        document.getElementById('formatSuggestion').value = '';
-    })
-    .catch(error => {
-        console.error('Error!', error.message);
-        showCustomError("เกิดข้อผิดพลาดในการส่งข้อมูล ลองใหม่อีกครั้งนะครับ");
-    })
-    .finally(() => {
-        confirmBtn.disabled = false;
-        confirmBtn.innerHTML = '<span>ยืนยันเพื่อส่งข้อมูล ✅</span>';
-        confirmBtn.classList.replace('bg-gray-400', 'bg-purple-500');
-        confirmBtn.classList.replace('hover:bg-gray-400', 'hover:bg-purple-600');
-    });
-}
-
-// -----------------------------------------------------
-// ฟังก์ชันจัดการเปิด-ปิด Modal และแสดง Error
-// -----------------------------------------------------
-
 function openFormatModal() {
-    formatModal.classList.remove('hidden');
-    formatModal.classList.add('flex');
-    setTimeout(() => { formatModalContent.classList.remove('scale-95'); formatModalContent.classList.add('scale-100'); }, 10);
+    const modal = document.getElementById('formatModal');
+    const content = document.getElementById('formatModalContent');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    setTimeout(() => content.classList.remove('scale-95'), 10);
 }
 
 function closeFormatModal() {
-    formatModalContent.classList.remove('scale-100');
-    formatModalContent.classList.add('scale-95');
-    setTimeout(() => { formatModal.classList.add('hidden'); formatModal.classList.remove('flex'); }, 200);
+    const modal = document.getElementById('formatModal');
+    const content = document.getElementById('formatModalContent');
+    content.classList.add('scale-95');
+    setTimeout(() => {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+    }, 150);
 }
 
-function showSuccessModal() {
-    successModal.classList.remove('hidden');
-    successModal.classList.add('flex');
-    setTimeout(() => { successModalContent.classList.remove('scale-95'); successModalContent.classList.add('scale-100'); }, 10);
+// ฟังก์ชันรวบรวมข้อมูลและส่งไปยัง Google Sheets ด้านหลังบ้าน
+function submitAllData() {
+    const confirmBtn = document.getElementById('confirmBtn');
+    const originalText = confirmBtn.innerHTML;
+    
+    // เปลี่ยนสถานะปุ่มเพื่อป้องกันคนกดซ้ำระหว่างส่งข้อมูล
+    confirmBtn.innerHTML = '<span>กำลังตรวจสอบข้อมูล... ⏳</span>';
+    confirmBtn.disabled = true;
+
+    // มัดรวมข้อมูลจากฟอร์มทั้งหมดอัตโนมัติด้วย FormData
+    const formData = new FormData(form);
+    
+    // ดึงข้อมูลแนวทางการจัดแข่งจากช่องข้อความใน Modal มาแพ็ครวมเข้าไปด้วย
+    const formatSuggestion = document.getElementById('formatSuggestion').value;
+    formData.append('format', formatSuggestion);
+
+    // ยิงข้อมูลตรงไปยัง Google Apps Script
+    fetch(scriptURL, { method: 'POST', body: formData })
+        .then(response => response.text())
+        .then(result => {
+            closeFormatModal(); // ปิดหน้าต่างเลือกรูปแบบการแข่งออกไปก่อน
+            
+            if (result === 'Success') {
+                // เคสที่ 1: ลงคะแนนสำเร็จ
+                openSuccessModal();
+                form.reset(); // ล้างข้อมูลในฟอร์มให้ว่างเปล่า
+                document.getElementById('formatSuggestion').value = '';
+            } else if (result === 'Already Voted') {
+                // เคสที่ 2: ตรวจสอบพบรหัสนักเรียนซ้ำในระบบ
+                alert('⚠️ รหัสนักเรียนนี้เคยลงคะแนนโหวตไปแล้ว ไม่สามารถโหวตซ้ำได้ครับ!');
+            } else if (result === 'Voting Closed') {
+                // เคสที่ 3: ระบบปิดรับโหวตเนื่องจากเลยกำหนดเวลา
+                alert('❌ ขออภัย ปิดรับคะแนนโหวตกิจกรรมนี้เรียบร้อยแล้วครับ');
+            } else {
+                alert('เกิดข้อผิดพลาดในการบันทึก: ' + result);
+            }
+        })
+        .catch(error => {
+            console.error('Error!', error.message);
+            alert('เกิดข้อผิดพลาดในการเชื่อมต่อระบบ กรุณาลองใหม่อีกครั้ง');
+        })
+        .finally(() => {
+            // คืนค่าปุ่มยืนยันให้กลับมาคลิกใหม่ได้ตามปกติ
+            confirmBtn.innerHTML = originalText;
+            confirmBtn.disabled = false;
+        });
+}
+
+function openSuccessModal() {
+    const modal = document.getElementById('successModal');
+    const content = document.getElementById('successModalContent');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    setTimeout(() => content.classList.remove('scale-95'), 10);
 }
 
 function closeSuccessModal() {
-    successModalContent.classList.remove('scale-100');
-    successModalContent.classList.add('scale-95');
-    setTimeout(() => { successModal.classList.add('hidden'); successModal.classList.remove('flex'); }, 200);
-}
-
-function showCustomError(msg) {
-    const errDiv = document.createElement('div');
-    errDiv.className = "fixed top-5 right-5 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-lg z-50 transition-all transform translate-x-full";
-    errDiv.innerHTML = `<p class="font-bold">แจ้งเตือน</p><p>${msg}</p>`;
-    document.body.appendChild(errDiv);
-    
-    setTimeout(() => errDiv.classList.remove('translate-x-full'), 10);
-    setTimeout(() => { errDiv.classList.add('translate-x-full'); setTimeout(() => errDiv.remove(), 300); }, 3000);
+    const modal = document.getElementById('successModal');
+    const content = document.getElementById('successModalContent');
+    content.classList.add('scale-95');
+    setTimeout(() => {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+    }, 150);
 }
