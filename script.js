@@ -1,13 +1,22 @@
-// --- ตั้งเวลาปิดโหวตอัตโนมัติ ---
-// รูปแบบ: "ปี-เดือน-วันTเวลา" (ตัวอย่างนี้คือ ปิดวันพุธที่ 3 มิถุนายน 2026 เวลา 23:59:59)
-const deadline = new Date("2026-06-01T11:59:59").getTime();
-
 window.onload = function() {
     const now = new Date().getTime();
     
-    // ถ้าเวลาปัจจุบัน เลยเวลาที่ตั้งไว้แล้ว
-    if (now > deadline) {
-        // เปลี่ยนหน้าตาฟอร์มให้กลายเป็นข้อความปิดโหวต
+    // 1. เช็คว่าเคยโหวตไปหรือยัง (ดึงข้อมูลจากความจำเครื่อง)
+    const hasVoted = localStorage.getItem("hasVotedEsports");
+    
+    // 2. เช็คเวลาปิดโหวต (จากโค้ดเดิม)
+    const deadline = new Date("2026-06-03T23:59:59").getTime();
+
+    if (hasVoted === "true") {
+        // ถ้าเคยโหวตแล้ว ให้ล็อกหน้าเว็บทันที
+        document.getElementById("gameForm").innerHTML = `
+            <div class="text-center py-10">
+                <h2 class="text-4xl font-bold text-amber-500 mb-4">⚠️ คุณได้ลงคะแนนโหวตไปแล้ว ⚠️</h2>
+                <p class="text-gray-600 text-lg">ระบบจำกัดให้โหวตได้เพียง 1 ครั้งต่อเครื่องเท่านั้นครับ</p>
+            </div>
+        `;
+    } else if (now > deadline) {
+        // ถ้าหมดเวลาโหวต (โค้ดเดิม)
         document.getElementById("gameForm").innerHTML = `
             <div class="text-center py-10">
                 <h2 class="text-4xl font-bold text-red-500 mb-4">❌ ปิดรับโหวตแล้ว ❌</h2>
@@ -16,6 +25,10 @@ window.onload = function() {
         `;
     }
 };
+
+// 💡 ตอนที่ส่งข้อมูลสำเร็จ (ในฟังก์ชันที่ใช้ส่ง Fetch/Axios ของคุณ)
+// อย่าลืมสั่งให้ระบบบันทึกความจำไว้ด้วย โดยเพิ่มบรรทัดนี้ลงไปหลังจากส่งข้อมูลสำเร็จ:
+// localStorage.setItem("hasVotedEsports", "true");
 // ------------------------------
 // =========================================================
 // 🔴 นำ URL ของ Google Apps Script มาใส่ในบรรทัดด้านล่างนี้ 🔴
