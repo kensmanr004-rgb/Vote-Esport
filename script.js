@@ -5,7 +5,7 @@ window.onload = function() {
     const hasVoted = localStorage.getItem("hasVotedEsports");
     
     // 2. เช็คเวลาปิดโหวต (จากโค้ดเดิม)
-    const deadline = new Date("2026-06-03T23:59:59").getTime();
+    const deadline = new Date("2026-06-01T11:59:59").getTime();
 
     if (hasVoted === "true") {
         // ถ้าเคยโหวตแล้ว ให้ล็อกหน้าเว็บทันที
