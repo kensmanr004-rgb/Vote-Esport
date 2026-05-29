@@ -39,9 +39,32 @@ const scriptURL = 'https://script.google.com/macros/s/AKfycbyY7WJIbQrHwiK0o-Ms33
 const form = document.getElementById('gameForm');
 
 // เมื่อผู้ใช้งานกดปุ่ม "ส่งคำตอบ" ในฟอร์มหลัก
+// เมื่อผู้ใช้งานกดปุ่ม "ส่งคำตอบ" ในฟอร์มหลัก
 form.addEventListener('submit', e => {
     e.preventDefault(); // บล็อกไม่ให้หน้าเว็บรีโหลด
-    openFormatModal();  // เปิดหน้าต่าง Modal ตัวแรกขึ้นมาถามข้อมูลเพิ่ม
+    
+    // 🔥 1. ดึงค่าชื่อเกมมาตัดช่องว่าง และแปลงเป็นตัวพิมพ์เล็กทั้งหมดเพื่อป้องกันการเลี่ยง
+    const g1 = document.getElementById('game1').value.trim().toLowerCase();
+    const g2 = document.getElementById('game2').value.trim().toLowerCase();
+    const g3 = document.getElementById('game3').value.trim().toLowerCase();
+
+    // 2. เลือกเก็บเฉพาะช่องที่มีการพิมพ์ข้อความเข้ามาจริงๆ (ช่องว่างเปล่าจะไม่เอามานับ)
+    const filledGames = [];
+    if (g1) filledGames.push(g1);
+    if (g2) filledGames.push(g2);
+    if (g3) filledGames.push(g3);
+
+    // 3. ใช้ Set ในการตรวจสอบตัวซ้ำ (Set จะเก็บเฉพาะค่าที่ไม่ซ้ำกันเท่านั้น)
+    const uniqueGames = new Set(filledGames);
+
+    // 4. เปรียบเทียบจำนวน ถ้าจำนวนใน filledGames ไม่เท่ากับ uniqueGames แสดงว่ามีเกมซ้ำ!
+    if (filledGames.length !== uniqueGames.size) {
+        alert('⚠️ กรุณากรอกชื่อเกมให้ไม่ซ้ำกันในแต่ละช่องนะครับ (ห้ามพิมพ์ชื่อเกมเดิมซ้ำๆ น้า 😅)');
+        return; // สั่งหยุดทำงานตรงนี้เลย ไม่เปิดหน้าต่างถัดไป และไม่ส่งข้อมูลเข้าระบบ
+    }
+
+    // ถ้าตรวจสอบแล้วผ่าน ไม่มีเกมซ้ำกันเลย จึงจะยอมให้เปิดหน้าต่าง Modal ถามแนวทางจัดแข่ง
+    openFormatModal();  
 });
 
 function openFormatModal() {
